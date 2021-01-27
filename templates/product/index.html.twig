@@ -8,9 +8,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>Name</th>
                 <th>Reference</th>
+                <th>Category</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>Enabled</th>
@@ -22,9 +23,10 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
+
                 <td>{{ product.name }}</td>
                 <td>{{ product.reference }}</td>
+                <td>{{ product.category.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.enabled ? 'Yes' : 'No' }}</td>

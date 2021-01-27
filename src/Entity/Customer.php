@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Customer
 {
@@ -22,40 +25,26 @@ class Customer
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cin;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $address;
+
 
     /**
      * @ORM\Column(type="integer")
      */
     private $cci;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $country;
+
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $phone;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -63,9 +52,9 @@ class Customer
     private $website;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $blocked;
+    private $blocked = false;
 
     /**
      * @ORM\Column(type="datetime")
@@ -73,9 +62,36 @@ class Customer
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Address::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $address;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="customerId")
+     */
+    private $productId;
+
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+        $this->productId = new ArrayCollection();
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -94,17 +110,6 @@ class Customer
         return $this;
     }
 
-    public function getCin(): ?string
-    {
-        return $this->cin;
-    }
-
-    public function setCin(string $cin): self
-    {
-        $this->cin = $cin;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
@@ -118,17 +123,6 @@ class Customer
         return $this;
     }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
 
     public function getCci(): ?int
     {
@@ -142,17 +136,7 @@ class Customer
         return $this;
     }
 
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
 
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
 
     public function getPhone(): ?string
     {
@@ -166,17 +150,7 @@ class Customer
         return $this;
     }
 
-    public function getZipCode(): ?int
-    {
-        return $this->zipCode;
-    }
 
-    public function setZipCode(?int $zipCode): self
-    {
-        $this->zipCode = $zipCode;
-
-        return $this;
-    }
 
     public function getWebsite(): ?string
     {
@@ -224,5 +198,53 @@ class Customer
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(Address $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getProductId(): Collection
+    {
+        return $this->productId;
+    }
+
+    public function addProductId(Order $productId): self
+    {
+        if (!$this->productId->contains($productId)) {
+            $this->productId[] = $productId;
+            $productId->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductId(Order $productId): self
+    {
+        if ($this->productId->removeElement($productId)) {
+            // set the owning side to null (unless already changed)
+            if ($productId->getCustomer() === $this) {
+                $productId->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }

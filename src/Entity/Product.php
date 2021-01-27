@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,16 @@ class Product
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="ProductId")
+     */
+    private $status;
+
+    public function __construct()
+    {
+        $this->status = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist
@@ -166,5 +178,37 @@ class Product
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getStatus(): Collection
+    {
+        return $this->status;
+    }
+
+    public function addStatus(Order $status): self
+    {
+        if (!$this->status->contains($status)) {
+            $this->status[] = $status;
+            $status->addProductId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatus(Order $status): self
+    {
+        if ($this->status->removeElement($status)) {
+            $status->removeProductId($this);
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }
