@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body onload="window.print()">
+<table class="table">
+    <tbody>
+
+    <tr>
+        <th>Order Date</th>
+        <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+    </tr>
+    <tr>
+        <th>DeliveryAt</th>
+        <td>{{ order.deliveryAt ? order.deliveryAt|date('Y-m-d H:i:s') : '' }}</td>
+    </tr>
+
+    <tr>
+        <th>Status</th>
+        <td>{{ order.status }}</td>
+    </tr>
+    <tr>
+        <th>Customer</th>
+        <td>{{ order.customer.name }}</td>
+    </tr>
+    <tr>
+        <th>Products</th>
+        <td>
+            {% for product in  order.products%}
+                <li>{{ product.name }} - {{ product.price }} DH</li>
+            {% endfor %}
+
+        </td>
+    </tr>
+    {#            <tr>#}
+    {#                <th>Product</th>#}
+    {#                <td>{{ order.product }}</td>#}
+    {#            </tr>#}
+    {#            <tr>#}
+    {#                <th>CreatedAt</th>#}
+    {#                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>#}
+    {#            </tr>#}
+    {#            <tr>#}
+    {#                <th>UpdatedAt</th>#}
+    {#                <td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+    {#            </tr>#}
+    </tbody>
+</table>
+
+</body>
+</html>
+    <h1>Order</h1>
+

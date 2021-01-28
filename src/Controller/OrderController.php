@@ -60,6 +60,16 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/print", name="order_print", methods={"GET"})
+     */
+    public function print(Order $order): Response
+    {
+        return $this->render('order/print.html.twig', [
+            'order' => $order,
+        ]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="order_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Order $order): Response

@@ -4,8 +4,63 @@
 
 {% block body %}
     <h1>Create new Customer</h1>
+    {{ form_start(form) }}
 
-    {{ include('customer/_form.html.twig') }}
+    <div class="container">
+        <div class="card w-100 p-lg-5" >
+            <div class="row">
 
-    <a href="{{ path('customer_index') }}">back to list</a>
+                <div class="col">
+                    {{ form_row(form.name) }}
+
+                </div>
+                <div class="col">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.cci) }}
+
+
+                </div>
+                <div class="col">
+                    {{ form_row(form.phone) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.website) }}
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.address.address) }}
+                </div>
+                <div class="col-md-auto">
+                    {{ form_row(form.address.zipCode) }}
+                </div>
+                <div class="col col-lg-2">
+                    {{ form_row(form.address.city) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="footer-cta">
+        <button class="btn add-cta">{{ button_label|default('Validate') }}</button>
+
+    </div>
+    {{ form_end(form) }}
+
+
+    <div class="footer-cta">
+        <a href="{{ path('customer_index') }}" data-toggle="tooltip" title="Back to list"><i class="nc-icon nc-minimal-left"></i></a>
+
+
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 {% endblock %}

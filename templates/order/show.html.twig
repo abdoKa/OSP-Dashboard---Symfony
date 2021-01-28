@@ -7,10 +7,11 @@
 
     <table class="table">
         <tbody>
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ order.id }}</td>#}
-{#            </tr>#}
+
+            <tr>
+                <th>Order Date</th>
+                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
             <tr>
                 <th>DeliveryAt</th>
                 <td>{{ order.deliveryAt ? order.deliveryAt|date('Y-m-d H:i:s') : '' }}</td>
@@ -19,6 +20,19 @@
             <tr>
                 <th>Status</th>
                 <td>{{ order.status }}</td>
+            </tr>
+            <tr>
+                <th>Customer</th>
+                <td>{{ order.customer.name }}</td>
+            </tr>
+            <tr>
+                <th>Products</th>
+                <td>
+                    {% for product in  order.products%}
+                        <li>{{ product.name }} - {{ product.price }} DH</li>
+                    {% endfor %}
+
+                </td>
             </tr>
 {#            <tr>#}
 {#                <th>Product</th>#}
