@@ -3,11 +3,18 @@
 {% block title %}Order{% endblock %}
 
 {% block body %}
-    <h1>Order</h1>
+    <h1>Order Details </h1>
+    <div class="edit-delete-cta">
+        <a href="{{ path('order_edit', {'id': order.id}) }}" class="edit-cta" data-toggle="tooltip" title="Edit this order"><i class="fas fa-edit"></i></a>
+        {{ include('order/_delete_form.html.twig') }}
 
+    </div>
     <table class="table">
         <tbody>
-
+        <tr>
+            <th>Customer</th>
+            <td>{{ order.customer.name }}</td>
+        </tr>
             <tr>
                 <th>Order Date</th>
                 <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
@@ -21,10 +28,7 @@
                 <th>Status</th>
                 <td>{{ order.status }}</td>
             </tr>
-            <tr>
-                <th>Customer</th>
-                <td>{{ order.customer.name }}</td>
-            </tr>
+
             <tr>
                 <th>Products</th>
                 <td>
@@ -34,24 +38,19 @@
 
                 </td>
             </tr>
-{#            <tr>#}
-{#                <th>Product</th>#}
-{#                <td>{{ order.product }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>CreatedAt</th>#}
-{#                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>UpdatedAt</th>#}
-{#                <td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
-{#            </tr>#}
+
         </tbody>
     </table>
 
-    <a href="{{ path('order_index') }}">back to list</a>
+    <div class="footer-cta">
+        <a href="{{ path('order_index') }}" data-toggle="tooltip" title="Back to list"><i class="nc-icon nc-minimal-left"></i></a>
 
-    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
 
-    {{ include('order/_delete_form.html.twig') }}
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 {% endblock %}

@@ -37,7 +37,7 @@ a {
     border-radius: 5px;
 }
 
-#customers_info {
+#customers_info, #categories_info {
     font-size: 13px;
     font-weight: bold;
     color: #000000;
@@ -114,4 +114,20 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 .add-cta {
     content: "Validate" !important;
+}
+ul {
+
+}
+li {
+    padding-left: 1.3em;
+    list-style: none;
+    padding: 0;
+}
+body > div.wrapper > div.main-panel > div > table > tbody > tr:nth-child(3) > td > li:before{
+    content: "\f187";
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-left: -1.3em; /* same as padding-left set on li */
+    width: 1.3em; /* same as padding-left set on li */
+
 }

@@ -4,10 +4,40 @@
 
 {% block body %}
     <h1>Edit Order</h1>
+    <div class="edit-delete-cta">
+        {{ include('order/_delete_form.html.twig') }}
+    </div>
 
-    {{ include('order/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_start(form) }}
 
-    <a href="{{ path('order_index') }}">back to list</a>
+    <div class="container">
+        <div class="card w-100 p-lg-5" >
+            <div class="row">
 
-    {{ include('order/_delete_form.html.twig') }}
+                <div class="col">
+                    {{ form_row(form.deliveryAt) }}
+                    {{ form_row(form.status) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.customer) }}
+                    {{ form_row(form.products) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="footer-cta">
+        <button class="btn update-cta">{{ button_label|default('Update') }}</button>
+        <a href="{{ path('order_index') }}" data-toggle="tooltip" title="Back to list"><i class="nc-icon nc-minimal-left"></i></a>
+
+
+    </div>
+
+    {{ form_end(form) }}
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 {% endblock %}

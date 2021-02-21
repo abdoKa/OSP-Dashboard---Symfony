@@ -3,9 +3,41 @@
 {% block title %}New Order{% endblock %}
 
 {% block body %}
-    <h1>Create new Order</h1>
+    <h1> new Order</h1>
+    {{ form_start(form) }}
 
-    {{ include('order/_form.html.twig') }}
+    <div class="container">
+        <div class="card w-100 p-lg-5" >
+            <div class="row">
 
-    <a href="{{ path('order_index') }}">back to list</a>
+                <div class="col">
+                    {{ form_row(form.deliveryAt) }}
+                    {{ form_row(form.status) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.customer) }}
+                    {{ form_row(form.products) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="footer-cta">
+        <button class="btn add-cta">{{ button_label|default('Save') }}</button>
+
+    </div>
+    {{ form_end(form) }}
+
+
+    <div class="footer-cta">
+        <a href="{{ path('order_index') }}" data-toggle="tooltip" title="Back to list"><i class="nc-icon nc-minimal-left"></i></a>
+
+
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 {% endblock %}

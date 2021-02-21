@@ -7,7 +7,9 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> Customer list</h4>
+                <h6 class="card-title"><a href="{{ path('dashboard') }}" class="non-active">Dashboard </a> <i class="nc-icon nc-minimal-right"></i> <span class="active-link">Category List</span> </h6>
+                <a href="{{ path('category_new') }}" class="new-cta" data-toggle="tooltip" title="Add a new company"><i class="fas fa-folder-plus"></i></a>
+
             </div>
             <div class="card-body">
 
@@ -27,8 +29,8 @@
                 <td>{{ category.name }}</td>
                 <td>{{ category.description }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('category_show', {'id': category.id}) }}" class="show-cta" data-toggle="tooltip" title="show details"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}"class="edit-cta"  data-toggle="tooltip" title="Edit this category"><i class="fas fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -39,9 +41,7 @@
         </tbody>
     </table>
             </div>
-            <div class="card-footer">
-                <a href="{{ path('category_new') }}">Create new</a>
-            </div>
+
         </div>
     </div>
 </div>
@@ -54,6 +54,9 @@
         $(document).ready(function() {
             $('#categories').DataTable();
         } );
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 {% endblock %}
 {% block stylesheets %}

@@ -8,8 +8,8 @@
         <div class="col">
             <div class="card">
               <div class="card-header">
-                <h6 class="card-title"><a href="{{ path('dashboard') }}" class="non-active">Dashboard </a> <i class="nc-icon nc-minimal-right"></i> <span class="active-link">Customers List</span> </h6>
-                      <a href="{{ path('customer_new') }}" class="new-cta" data-toggle="tooltip" title="Add a new company"><i class="fas fa-folder-plus"></i></a>
+                  <h6 class="card-title"><a href="{{ path('dashboard') }}" class="non-active">Dashboard </a> <i class="nc-icon nc-minimal-right"></i> <span class="active-link">Customers List</span> </h6>
+                  <a href="{{ path('customer_new') }}" class="new-cta" data-toggle="tooltip" title="Add a new company"><i class="fas fa-folder-plus"></i></a>
               </div>
 
               <div class="card-body">
@@ -69,6 +69,7 @@
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <script>
+
         $(document).ready(function() {
             $('#customers').DataTable();
         } );
@@ -76,6 +77,7 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+
     </script>
 {% endblock %}
 {% block stylesheets %}

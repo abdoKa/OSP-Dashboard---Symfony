@@ -4,10 +4,32 @@
 
 {% block body %}
     <h1>Edit Category</h1>
+    <div class="edit-delete-cta">
+        {{ include('category/_delete_form.html.twig') }}
 
-    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('category_index') }}">back to list</a>
+    </div>
+{#    {{ include('category/_form.html.twig') }}#}
+    {{ form_start(form) }}
+    <div class="col">
+        {{ form_row(form.name) }}
 
-    {{ include('category/_delete_form.html.twig') }}
+    </div>
+    <div class="col">
+        {{ form_row(form.description) }}
+
+    </div>
+    <div class="col">
+        {{ form_row(form.products) }}
+
+    </div>
+
+    <div class="footer-cta">
+        <button class="btn update-cta">{{ button_label|default('Save') }}</button>
+        <a href="{{ path('category_index') }}" data-toggle="tooltip" title="Back to list"><i class="nc-icon nc-minimal-left"></i></a>
+
+
+    </div>
+    {{ form_end(form) }}
+
 {% endblock %}

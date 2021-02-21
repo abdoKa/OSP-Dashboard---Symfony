@@ -3,81 +3,82 @@
 {% block title %}Order index{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title"> Customer index</h4>
-            </div>
-            <div class="card-body">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title"><a href="{{ path('dashboard') }}" class="non-active">Dashboard </a> <i
+                                class="nc-icon nc-minimal-right"></i> <span class="active-link">Companies' Orders</span>
+                    </h6>
+                    <a href="{{ path('order_new') }}" class="new-cta" data-toggle="tooltip"
+                       title="Add a new company"><i class="fas fa-folder-plus"></i></a>
+                </div>
+                <div class="card-body">
+                    <table class="table" id="orders">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>DeliveryAt</th>
+                            <th>Customer</th>
+                            <th>Products</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>CreatedAt</th>
+                            <th>actions</th>
 
-    <table class="table" id="orders">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DeliveryAt</th>
-                <th>Customer</th>
-                <th>Products</th>
-                <th>Status</th>
-                <th>Total</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.deliveryAt ? order.deliveryAt|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ order.customer.name }}</td>
+                                <td>
+                                    <ul>
+                                        {% for product in  order.products %}
+                                            <li>{{ product.name }} - {{ product.price }} DH</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ order.status }}</td>
+                                <td>
+                                    {% set total = 0 %}
+                                    {% for product in  order.products %}
+                                        {% set total = total + product.price %}
+                                    {% endfor %}
+                                    {{ total }} DH
+                                </td>
+                                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>
+                                    <a href="{{ path('order_show', {'id': order.id}) }}" class="show-cta" data-toggle="tooltip" title="show details"><i class="far fa-eye"></i></a>
+                                    <a href="{{ path('order_edit', {'id': order.id}) }}" class="edit-cta"  data-toggle="tooltip" title="Edit this order"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ path('order_print', {'id': order.id}) }}" class="edit-cta"  data-toggle="tooltip" title="Edit this order"><i class="fas fa-print"></i></a>
 
-            </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-            <tr>
-                <td>{{ order.id }}</td>
-                <td>{{ order.deliveryAt ? order.deliveryAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ order.customer.name }}</td>
-                <td>
-                    <ul>
-                        {% for product in  order.products%}
-                            <li>{{ product.name }} - {{ product.price }} DH</li>
+
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7">no records found</td>
+                            </tr>
                         {% endfor %}
-                    </ul>
-                </td>
-                <td>{{ order.status }}</td>
-                <td>
-                    {% set total = 0 %}
-                    {% for product in  order.products%}
-                        {% set total = total + product.price %}
-                    {% endfor %}
-                    {{ total }} DH
-                </td>
-                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('order_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('order_print', {'id': order.id}) }}">print</a>
-                    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-            </div>
-            <div class="card-footer">
-                <a href="{{ path('order_new') }}">Create new</a>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#orders').DataTable();
-        } );
+        });
     </script>
 {% endblock %}
 {% block stylesheets %}
