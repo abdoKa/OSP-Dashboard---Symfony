@@ -18,12 +18,12 @@
                         <thead>
                         <tr>
                             <th>Id</th>
-                            <th>DeliveryAt</th>
+                            <th>Date Delivery</th>
                             <th>Customer</th>
                             <th>Products</th>
                             <th>Status</th>
                             <th>Total</th>
-                            <th>CreatedAt</th>
+                            <th>Date</th>
                             <th>actions</th>
 
                         </tr>
@@ -37,7 +37,7 @@
                                 <td>
                                     <ul>
                                         {% for product in  order.products %}
-                                            <li>{{ product.name }} - {{ product.price }} DH</li>
+                                            <li><i class="nc-icon nc-box-2 text-primary"></i> {{ product.name }} - {{ product.price }} DH</li>
                                         {% endfor %}
                                     </ul>
                                 </td>

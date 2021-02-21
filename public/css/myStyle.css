@@ -131,3 +131,21 @@ body > div.wrapper > div.main-panel > div > table > tbody > tr:nth-child(3) > td
     width: 1.3em; /* same as padding-left set on li */
 
 }
+.bill-header {
+    background-color: #0c5460;
+    color:#fff;
+}
+.big-font table {
+    font-size:20px;
+}
+.m-auto {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center;
+    margin-top: 10% !important;
+}
+.panel-price {
+    color: #4CD964;
+    font-weight:bold;
+
+}

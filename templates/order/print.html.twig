@@ -5,11 +5,45 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <!--     Fonts and icons     -->
+    {#    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700,200' rel="stylesheet"/>#}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <title>OSP - PRINT ORDER</title>
+
+    {% block stylesheets %}
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/paper-dashboard.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}">
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link href={{ asset('demo/demo.css') }} rel="stylesheet"/>
+    {% endblock %}
 </head>
 <body onload="window.print()">
-<table class="table">
+<div class="container big-font m-auto">
+    <div class="card w-100 " >
+
+    <table class="table">
     <tbody>
+    <div class="bill-header">
+        <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <h3>Company name :<strong>{{ order.customer.name }}</strong></h3>
+
+            </div>
+            <div class="col">
+                <h3>Common Company Identifier : <strong>{{ order.customer.cci }}</strong></h3>
+            </div>
+        </div>
+        </div>
+    </div>
 
     <tr>
         <th>Order Date</th>
@@ -50,9 +84,19 @@
     {#                <td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
     {#            </tr>#}
     </tbody>
+        <tfoot>
+        <tr>
+            <td>Sum</td>
+            <td class="panel-price">   {% set total = 0 %}
+                {% for product in  order.products %}
+                    {% set total = total + product.price %}
+                {% endfor %}
+                {{ total }} DH</td>
+        </tr>
+        </tfoot>
 </table>
-
+    </div>
+</div>
 </body>
 </html>
-    <h1>Order</h1>
 
